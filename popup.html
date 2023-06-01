@@ -3,19 +3,19 @@
 <head>
   <style>
     body {
-      width: 300px;
-      height: 500px;
+      min-width: 320px;
       padding: 10px;
       background-color: #f5f5f5;
       font-family: Arial, sans-serif;
       overflow-y: auto;
+      margin: 0;
     }
     .header {
       text-align: center;
-      margin-bottom: 10px;
+      margin-bottom: 20px;
     }
     .header h1 {
-      font-size: 18px;
+      font-size: 24px;
       margin: 0;
       padding: 10px;
       background-color: #333;
@@ -28,23 +28,70 @@
       margin: 0;
     }
     .url-item {
+      display: flex;
+      align-items: center;
       padding: 10px;
       background-color: white;
       border-radius: 4px;
-      margin-bottom: 5px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-    .url-item a {
-      display: flex;
-      align-items: center;
+    .url-item .link {
+      flex-grow: 1;
       text-decoration: none;
       color: #333;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      word-break: break-all;
     }
-    .url-item img {
-      width: 16px;
-      height: 16px;
-      margin-right: 5px;
+    .url-item .remove-button {
+      background-color: #f44336;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 5px 10px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .url-item .remove-button:hover {
+      background-color: #d32f2f;
+    }
+    .action-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+    .save-btn {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .save-btn:hover {
+      background-color: #45a049;
+    }
+    .clear-all-btn {
+      background-color: #f44336;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-left: 10px;
+      transition: background-color 0.3s ease;
+    }
+    .clear-all-btn:hover {
+      background-color: #d32f2f;
     }
   </style>
+  <script src="popup.js"></script>
 </head>
 <body>
   <div class="header">
@@ -52,6 +99,9 @@
   </div>
   <ul class="urls-list" id="urls"></ul>
 
-  <script src="popup.js"></script>
+  <div class="action-buttons">
+    <button class="save-btn" id="saveBtn">Save Current Page</button>
+    <button class="clear-all-btn" id="clearAllBtn">Clear All</button>
+  </div>
 </body>
 </html>
