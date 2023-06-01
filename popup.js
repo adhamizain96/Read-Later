@@ -19,24 +19,6 @@ function saveCurrentPage() {
   });
 }
 
-function removeUrl(url) {
-  chrome.storage.sync.get('urls', function(data) {
-    let urls = data.urls || [];
-    urls = urls.filter(item => item !== url);
-    chrome.storage.sync.set({ urls: urls }, function() {
-      console.log('URL is removed:', url);
-      renderSavedUrls();
-    });
-  });
-}
-
-function clearAllUrls() {
-  chrome.storage.sync.remove('urls', function() {
-    console.log('All URLs are cleared');
-    renderSavedUrls();
-  });
-}
-
 function renderSavedUrls() {
   chrome.storage.sync.get('urls', function(data) {
     let urls = data.urls || [];
@@ -48,27 +30,56 @@ function renderSavedUrls() {
       let a = document.createElement('a');
       a.href = url;
       a.textContent = url;
+      li.appendChild(a);
+
       let removeButton = document.createElement('button');
       removeButton.textContent = 'Remove';
+      removeButton.classList.add('remove-button');
       removeButton.addEventListener('click', function() {
         removeUrl(url);
       });
 
-      li.appendChild(a);
+      li.appendChild(document.createTextNode(' - '));
       li.appendChild(removeButton);
+
       urlList.appendChild(li);
     });
+
+    adjustPopupSize();
   });
 }
 
+function removeUrl(url) {
+  chrome.storage.sync.get('urls', function(data) {
+    let urls = data.urls || [];
+    let index = urls.indexOf(url);
+    if (index !== -1) {
+      urls.splice(index, 1);
+      chrome.storage.sync.set({ urls: urls }, function() {
+        console.log('URL is removed:', url);
+        renderSavedUrls();
+      });
+    }
+  });
+}
+
+function adjustPopupSize() {
+  const height = document.body.offsetHeight + 40;
+  const width = document.body.offsetWidth;
+
+  window.resizeTo(width, height);
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('saveBtn').addEventListener('click', saveCurrentPage);
+  document.getElementById('clearAllBtn').addEventListener('click', clearAllUrls);
+
   renderSavedUrls();
-
-  document.getElementById('saveBtn').addEventListener('click', function() {
-    saveCurrentPage();
-  });
-
-  document.getElementById('clearAllBtn').addEventListener('click', function() {
-    clearAllUrls();
-  });
 });
+
+function clearAllUrls() {
+  chrome.storage.sync.set({ urls: [] }, function() {
+    console.log('All URLs are cleared.');
+    renderSavedUrls();
+  });
+}
