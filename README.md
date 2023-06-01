@@ -1,6 +1,6 @@
 # Read-Later
 
-  The 'Read Later' extension is designed to provide users with a convenient way to save web pages for future reading. It consists of several key files that work together to deliver its functionality.
+  The 'Read Later' extension is designed to provide users with a convenient way to save web pages for future reading. It consists of several key files that work together to deliver its functionality. 
   
   The popup.js file plays a crucial role in defining the behavior and functionality of the extension's popup window. It contains JavaScript code that interacts with the browser's extension APIs, allowing it to handle user interactions effectively. Within this script, you will find functions responsible for saving the URL of the current page, rendering the saved URLs in the popup, and extracting the domain from a URL. The usage of the chrome.tabs API enables the script to query and access information about the active tab.
   
