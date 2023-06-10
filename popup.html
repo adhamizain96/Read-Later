@@ -1,107 +1,126 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <style>
-    body {
-      min-width: 320px;
-      padding: 10px;
-      background-color: #f5f5f5;
-      font-family: Arial, sans-serif;
-      overflow-y: auto;
-      margin: 0;
-    }
-    .header {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .header h1 {
-      font-size: 24px;
-      margin: 0;
-      padding: 10px;
-      background-color: #333;
-      color: white;
-      border-radius: 4px;
-    }
-    .urls-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    .url-item {
-      display: flex;
-      align-items: center;
-      padding: 10px;
-      background-color: white;
-      border-radius: 4px;
-      margin-bottom: 10px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-    .url-item .link {
-      flex-grow: 1;
-      text-decoration: none;
-      color: #333;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      word-break: break-all;
-    }
-    .url-item .remove-button {
-      background-color: #f44336;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      padding: 5px 10px;
-      font-size: 14px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    .url-item .remove-button:hover {
-      background-color: #d32f2f;
-    }
-    .action-buttons {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 20px;
-    }
-    .save-btn {
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      padding: 10px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    .save-btn:hover {
-      background-color: #45a049;
-    }
-    .clear-all-btn {
-      background-color: #f44336;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      padding: 10px;
-      font-size: 16px;
-      cursor: pointer;
-      margin-left: 10px;
-      transition: background-color 0.3s ease;
-    }
-    .clear-all-btn:hover {
-      background-color: #d32f2f;
-    }
-  </style>
-  <script src="popup.js"></script>
-</head>
-<body>
-  <div class="header">
-    <h1>Saved Pages</h1>
-  </div>
-  <ul class="urls-list" id="urls"></ul>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f8f8;
+      }
 
-  <div class="action-buttons">
-    <button class="save-btn" id="saveBtn">Save Current Page</button>
-    <button class="clear-all-btn" id="clearAllBtn">Clear All</button>
-  </div>
-</body>
+      .container {
+        max-width: 400px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .header h1 {
+        font-size: 24px;
+        color: #000;
+        margin: 0;
+        padding: 0;
+      }
+
+      .controls {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+
+      .controls input[type="text"] {
+        flex: 1;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      .button {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        color: #fff;
+        font-weight: bold;
+      }
+
+      .button-primary {
+        background-color: #4285f4;
+      }
+
+      .button-secondary {
+        background-color: #f44336;
+      }
+
+      .url-list {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .url-list li {
+        margin-bottom: 10px;
+        padding: 10px;
+        background-color: #f8f8f8;
+        border-radius: 4px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .url-list li .link {
+        flex: 1;
+        color: #4285f4;
+        text-decoration: none;
+        margin-right: 5px;
+        display: flex;
+        align-items: center;
+      }
+
+      .url-list li .link img {
+        margin-right: 5px;
+      }
+
+      .url-list li .link:hover {
+        text-decoration: underline;
+      }
+
+      .url-list li .remove-button {
+        background-color: transparent;
+        color: #f44336;
+        border: none;
+        cursor: pointer;
+      }
+
+      .url-list li .remove-button:hover {
+        color: #d32f2f;
+      }
+    </style>
+    <script src="popup.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <h1>Read Later</h1>
+      </header>
+      <div class="controls">
+        <input id="searchInput" type="text" placeholder="Search..." />
+        <input id="tagsInput" type="text" placeholder="Filter by tags..." />
+        <button id="clearAllBtn" class="button button-secondary">Clear</button>
+      </div>
+      <ul id="urls" class="url-list"></ul>
+      <button id="saveBtn" class="button button-primary">Save Current Page</button>
+    </div>
+  </body>
 </html>

@@ -2,15 +2,14 @@
   "manifest_version": 3,
   "name": "Read Later",
   "description": "This extension allows users to save pages to read later.",
-  "version": "1.1",
+  "version": "1.5",
   "action": {
     "default_popup": "popup.html",
     "default_icon": "icon.png"
   },
   "permissions": [
     "storage",
-    "activeTab",
-    "notifications"
+    "activeTab"
   ],
   "icons": {
     "16": "icon.png",
